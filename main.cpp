@@ -6,7 +6,7 @@
  */
 #include <SFML\Graphics.hpp>
 #include <string>
-#include "../main.h"
+#include "main.h"
 sf::Sprite ball;
 sf::RenderWindow gameWindow(sf::VideoMode::getDesktopMode(), "Pong (by Carmine)", sf::Style::Default);
 int main() {
@@ -29,6 +29,14 @@ void run() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while (gameWindow.isOpen())
 	{
-
+		processEvents();
+		timeSinceLastUpdate += clock.restart();
+		while(timeSinceLastUpdate > timePerFrame)
+		{
+			timeSinceLastUpdate -= timePerFrame;
+			processEvents();
+			update();
+		}
+		render();
 	}
 }
